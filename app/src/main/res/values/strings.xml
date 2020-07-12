@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">QuizMoney</string>
+    <string name="you_are_not_a_member">You are not a member ?</string>
+    <string name="register">REGISTER</string>
 </resources>
