@@ -2,11 +2,13 @@ package com.project.quizmoney.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.project.quizmoney.MainActivity;
+import com.project.quizmoney.R;
 import com.project.quizmoney.ui.login.RegisterActivity;
 
 public class SplashScreen extends AppCompatActivity {
