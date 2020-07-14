@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "374812430563",
+    "firebase_url": "https://quizmoney-30b26.firebaseio.com",
+    "project_id": "quizmoney-30b26",
+    "storage_bucket": "quizmoney-30b26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374812430563:android:ec99c6ebc8e536e02675d6",
+        "android_client_info": {
+          "package_name": "com.project.quizmoney"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374812430563-79gqhkjah4luqr18b0fas3r0ac01d3pr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVozX_OU0iMIRUgL6ADsGIvf9Tyd3tni0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374812430563-79gqhkjah4luqr18b0fas3r0ac01d3pr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
