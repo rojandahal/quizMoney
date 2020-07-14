@@ -7,4 +7,7 @@
 
     <color name="black">#100101</color>
     <color name="red">#F21135</color>
+    <color name="theme_red">#AD112A</color>
+    <color name="grey">#C6C1C1</color>
+    <color name="disable_btn">#9999</color>
 </resources>

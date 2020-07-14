@@ -1,5 +1,23 @@
 <resources>
     <string name="app_name">QuizMoney</string>
+    <string name="APP_NAME">QuizMoney</string>
     <string name="you_are_not_a_member">You are not a member ?</string>
     <string name="register">REGISTER</string>
+    <string name="phone_verification">Please enter your country code and phone number for verification</string>
+    <string name="verify_your_number">Verify Your Number</string>
+    <string name="your_phone_number">Your Phone Number</string>
+    <string name="_977">+977</string>
+    <string name="generate_otp">Generate OTP</string>
+    <string name="error_display">Please fill in the number to continue</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="phone_veri_info">We have sent you an OTP for phone verification</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="working">Working...</string>
+    <string name="error_verifying_otp">There was an error verifying the OTP</string>
+    <string name="do_you_want_to_resend_code">Do you want to Resend Code ?</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="timer">Timer</string>
+    <string name="welcome_to_money_quiz">Welcome To Money Quiz:</string>
+    <string name="nice_to_see_you_here">Nice to see you here :)</string>
+    <string name="login">Login</string>
 </resources>
