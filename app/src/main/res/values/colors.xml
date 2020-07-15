@@ -9,5 +9,9 @@
     <color name="red">#F21135</color>
     <color name="theme_red">#AD112A</color>
     <color name="grey">#C6C1C1</color>
+    <color name="green">#339D4C</color>
+    <color name="yellow">#D4C940</color>
+    <color name="theme">#0BB6B1</color>
     <color name="disable_btn">#9999</color>
+
 </resources>
