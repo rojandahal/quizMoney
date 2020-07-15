@@ -11,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7802798242650488~8678373784"/>
+
         <activity android:name=".ui.SplashScreen" android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +31,9 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".MainActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity android:name=".HomeActivity"
             android:theme="@style/AppTheme" />
     </application>
 

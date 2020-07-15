@@ -71,11 +71,10 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
      * This method is executed when the activity is created
      */
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
-
     private TextView countdown;
     private int counter=59;
     private TextView resendCode;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +162,7 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
 
     private void setVerifyOtp(){
 
-        String otp = mOtpNumber.getText().toString();
+        final String otp = mOtpNumber.getText().toString();
 
         if (otp.isEmpty()) {
             //Error Message is shown when the otp is empty
@@ -174,8 +173,13 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
             otpProgress.setVisibility(View.VISIBLE);
             verifyOtp.setEnabled(false);
 
-            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, otp);
-            signInWithPhoneAuthCredential(credential);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, otp);
+                    signInWithPhoneAuthCredential(credential);
+                }
+            }).start();
         }
 
     }
