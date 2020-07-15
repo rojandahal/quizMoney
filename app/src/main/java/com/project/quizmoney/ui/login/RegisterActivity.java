@@ -14,11 +14,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.project.quizmoney.HomeActivity;
 import com.project.quizmoney.MainActivity;
 import com.project.quizmoney.R;
 
@@ -32,6 +43,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      */
     private EditText mCountryCode;
     private EditText mPhoneNumber;
+
+    /**
+     * These are Firebase authentication object and the currentUser object
+     * mCurrentUser can be used to get the userId: PhoneNumber of the current logged in user in the app
+     */
+    private FirebaseAuth mAuth;
+    private FirebaseUser mCurrentUser;
 
     /**
      * This is the progress bar for indicating the login success or not
@@ -53,8 +71,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      * These are Firebase authentication object and the currentUser object
      * mCurrentUser can be used to get the userId: PhoneNumber of the current logged in user in the app
      */
-    private FirebaseAuth mAuth;
-    private FirebaseUser mCurrentUser;
 
     /**
      * This is the Authentication provider callback object
@@ -77,8 +93,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mAuth = FirebaseAuth.getInstance(); //Instancing the firebase authentication object
-        mCurrentUser = mAuth.getCurrentUser();      //Getting the current user object from the firebase
+
 
         mCountryCode = findViewById(R.id.editCountryCode);
         mPhoneNumber = findViewById(R.id.editPhoneNumber);
@@ -133,43 +148,105 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null).
-        if(mCurrentUser !=null){
-            Log.d(TAG, "onStart: " + mCurrentUser.getPhoneNumber());
-            Intent homeIntent = new Intent(this,MainActivity.class);
-            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(homeIntent);
-            this.finish();
-
-        }else Log.d(TAG, "onStart: " + "No User Signed In");
+        firebaseAccess fbAccess = new firebaseAccess();
+        fbAccess.start();
     }
 
 
     private void setCallbacks(){
-        // This will set the callBack when the code is sent or verification is complete or the verification is failed
-        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+        new Thread(new Runnable() {
             @Override
-            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+            public void run() {
+                // This will set the callBack when the code is sent or verification is complete or the verification is failed
+                mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    @Override
+                    public void onVerificationCompleted(@NonNull final PhoneAuthCredential phoneAuthCredential) {
+                        signInWithPhoneAuthCredential(phoneAuthCredential);
+                    }
 
+                    @Override
+                    public void onVerificationFailed(@NonNull FirebaseException e) {
+                        errorText.setText(R.string.verification_failed);
+                        errorText.setVisibility(View.VISIBLE);
+                        loginProcess.setVisibility(View.INVISIBLE);
+                        registerBtn.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onCodeSent(@NonNull final String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                        super.onCodeSent(s, forceResendingToken);
+
+                        new android.os.Handler().postDelayed(
+                                new Runnable() {
+                                    public void run() {
+                                        Log.d(TAG, "doInBackground: Inside OnCodeSent " + Thread.currentThread() + " " + Thread.activeCount());
+                                        Log.d(TAG, "onCodeSent: " + " Code is Sent");
+                                        Intent otpIntent = new Intent(RegisterActivity.this,OtpActivity.class);
+                                        otpIntent.putExtra("verificationID",s);
+                                        otpIntent.putExtra("phoneNumber",totalPhoneNumber);
+                                        startActivity(otpIntent);
+                                    }
+                                },
+                                10000);
+                    }
+                };
             }
+        }).start();
 
-            @Override
-            public void onVerificationFailed(@NonNull FirebaseException e) {
+    }
 
-            }
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
 
-            @Override
-            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                super.onCodeSent(s, forceResendingToken);
+        Log.d(TAG, "doInBackground: Inside signInWithPhone " + Thread.currentThread());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            sendUserToHome();
+                            // ...
+                        } else {
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                // The verification code entered was invalid
+                                errorText.setVisibility(View.VISIBLE);
+                                errorText.setText(R.string.error_verifying_otp);
+                            }
+                        }
+                        loginProcess.setVisibility(View.INVISIBLE);
+                        registerBtn.setEnabled(true);
+                    }
+                });
+    }
 
-                resendingToken = forceResendingToken;
-                Log.d(TAG, "onCodeSent: " + " Code is Sent");
-                Intent otpIntent = new Intent(RegisterActivity.this,OtpActivity.class);
-                otpIntent.putExtra("verificationID",s);
-                otpIntent.putExtra("phoneNumber",totalPhoneNumber);
-                startActivity(otpIntent);
-            }
-        };
+    private void sendUserToHome() {
+
+        Intent homeIntent = new Intent(this, HomeActivity.class);
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(homeIntent);
+    }
+
+    class firebaseAccess extends Thread{
+
+        public firebaseAccess() {
+            mAuth = FirebaseAuth.getInstance(); //Instancing the firebase authentication object
+            mCurrentUser = mAuth.getCurrentUser();      //Getting the current user object from the firebase
+        }
+
+        @Override
+        public void run() {
+            Log.d(TAG, "doInBackground: on Start " + Thread.currentThread());
+            // Check if user is signed in (non-null).
+            if(mCurrentUser !=null){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendUserToHome();
+                    }
+                });
+
+            }else Log.d(TAG, "onStart: " + "No User Signed In");
+        }
     }
 }

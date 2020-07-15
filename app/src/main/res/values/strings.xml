@@ -20,4 +20,6 @@
     <string name="welcome_to_money_quiz">Welcome To Money Quiz:</string>
     <string name="nice_to_see_you_here">Nice to see you here :)</string>
     <string name="login">Login</string>
+    <string name="signout">SignOut</string>
+    <string name="verification_failed">Verification Failed, please try again.</string>
 </resources>

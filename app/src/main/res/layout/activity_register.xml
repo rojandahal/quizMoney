@@ -2,9 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroound_login">
+    android:background="@drawable/backgroound_login"
+    android:padding="8sp">
 
 
     <Button
@@ -46,7 +48,7 @@
         android:layout_marginEnd="83dp"
         android:text="@string/phone_verification"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -134,5 +136,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerButton"
         app:layout_constraintVertical_bias="0.013" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
