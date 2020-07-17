@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,18 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.project.quizmoney.HomeActivity;
-import com.project.quizmoney.MainActivity;
+import com.project.quizmoney.data.HomeActivity;
 import com.project.quizmoney.R;
-
-import java.util.concurrent.TimeUnit;
 
 
 public class OtpActivity extends AppCompatActivity implements View.OnClickListener {
@@ -75,6 +70,12 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
     private int counter=59;
     private TextView resendCode;
 
+    private String fstName;
+    private String lstName;
+    private String email;
+    private String phoneNumber;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,10 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
 
         //Extracting verification id from the extra put in RegisterActivity when calling this activity
         verificationId = getIntent().getStringExtra("verificationID");
+        fstName = getIntent().getStringExtra("fname");
+        lstName = getIntent().getStringExtra("lname");
+        email = getIntent().getStringExtra("email");
+        phoneNumber = getIntent().getStringExtra("phoneNumber");
 
         verifyOtp.setOnClickListener(this);
     }
@@ -124,16 +129,24 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("signIn", "signInWithCredential:success");
-                                sendUserToHome();
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("signIn", "signInWithCredential:success");
+                            sendUserToHome();
+                            OtpActivity.this.finish();
                             // ...
                         } else {
                             // Sign in failed, display a message and update the UI
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
-                                errorMessage.setText(R.string.error_verifying_otp);
-                                errorMessage.setVisibility(View.VISIBLE);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        errorMessage.setText(R.string.error_verifying_otp);
+                                        verifyOtp.setEnabled(true);
+                                        errorMessage.setVisibility(View.VISIBLE);
+                                    }
+                                });
+
                             }
                         }
                     }
@@ -148,6 +161,10 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
         Intent homeIntent = new Intent(this, HomeActivity.class);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        homeIntent.putExtra("phoneNumber",phoneNumber);
+        homeIntent.putExtra("fname",fstName);
+        homeIntent.putExtra("lname",lstName);
+        homeIntent.putExtra("email",email);
         startActivity(homeIntent);
 
     }
@@ -203,4 +220,15 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
         }.start();
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "doInBackground: on Start " + Thread.currentThread());
+        // Check if user is signed in (non-null).
+        if(mCurrentUser !=null){
+           this.finish();
+        }else Log.d(TAG, "onStart: " + "No User Signed In");
+    }
+
 }

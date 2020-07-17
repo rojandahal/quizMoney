@@ -8,18 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -29,9 +22,9 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.project.quizmoney.HomeActivity;
-import com.project.quizmoney.MainActivity;
+import com.project.quizmoney.data.HomeActivity;
 import com.project.quizmoney.R;
+import com.project.quizmoney.model.UserDetails;
 
 import java.util.concurrent.TimeUnit;
 
@@ -84,17 +77,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      */
     private String TAG = "Register Activity";
 
-    private PhoneAuthProvider.ForceResendingToken resendingToken;
 
     private String totalPhoneNumber;
+
+    private EditText firstName;
+    private EditText lastName;
+    private EditText emailAddress;
+
+    private static UserDetails userDetails = new UserDetails();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-
-
+        firstName = findViewById(R.id.firstName);
+        lastName = findViewById(R.id.lastName);
+        emailAddress = findViewById(R.id.emailAddress);
         mCountryCode = findViewById(R.id.editCountryCode);
         mPhoneNumber = findViewById(R.id.editPhoneNumber);
         loginProcess = findViewById(R.id.progressBar);
@@ -114,20 +113,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         String country_code = mCountryCode.getText().toString();
         String phone_number = mPhoneNumber.getText().toString();
+        String fstName = firstName.getText().toString();
+        String lstName = lastName.getText().toString();
+        String email = emailAddress.getText().toString();
 
         totalPhoneNumber = "+" + country_code + phone_number;
 
         Log.d(TAG, "onClick: PhoneNumber " + totalPhoneNumber );
 
-        if (country_code.isEmpty() || phone_number.isEmpty()) {
+        if (country_code.isEmpty() || phone_number.isEmpty() || fstName.isEmpty() || lstName.isEmpty() || email.isEmpty()) {
             //If the country code or the phone number is empty the an error message is shown
             errorText.setText(R.string.error_display);
             errorText.setVisibility(View.VISIBLE);
         } else {
             //If the user types correct phone number then the progressBar is set to visible and
             //the register button is set to disable
+            userDetails.setValues(fstName,lstName,email,totalPhoneNumber);
+
             loginProcess.setVisibility(View.VISIBLE);
             registerBtn.setEnabled(false);
+            Log.d(TAG, "onClick: Sending Code");
 
             //This will verify the phone number and send code which can only be sent once in 60 seconds
             PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -167,6 +172,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
+
                         errorText.setText(R.string.verification_failed);
                         errorText.setVisibility(View.VISIBLE);
                         loginProcess.setVisibility(View.INVISIBLE);
@@ -179,16 +185,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                         new android.os.Handler().postDelayed(
                                 new Runnable() {
+                                    @Override
                                     public void run() {
+                                        loginProcess.setVisibility(View.INVISIBLE);
+                                        registerBtn.setEnabled(true);
+
                                         Log.d(TAG, "doInBackground: Inside OnCodeSent " + Thread.currentThread() + " " + Thread.activeCount());
                                         Log.d(TAG, "onCodeSent: " + " Code is Sent");
                                         Intent otpIntent = new Intent(RegisterActivity.this,OtpActivity.class);
                                         otpIntent.putExtra("verificationID",s);
+
                                         otpIntent.putExtra("phoneNumber",totalPhoneNumber);
+                                        otpIntent.putExtra("fname",userDetails.getFirstName());
+                                        otpIntent.putExtra("lname",userDetails.getLastName());
+                                        otpIntent.putExtra("email",userDetails.getEmail());
+
                                         startActivity(otpIntent);
                                     }
-                                },
-                                10000);
+                                },10000);
                     }
                 };
             }
@@ -219,11 +233,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 });
     }
 
+//    private void addItemToDatabase() {
+//        userDetails.runFireStore();
+//        userDetails.setUserID(mCurrentUser.getUid());
+//    }
+
     private void sendUserToHome() {
 
         Intent homeIntent = new Intent(this, HomeActivity.class);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        homeIntent.putExtra("phoneNumber",totalPhoneNumber);
+        homeIntent.putExtra("fname",userDetails.getFirstName());
+        homeIntent.putExtra("lname",userDetails.getLastName());
+        homeIntent.putExtra("email",userDetails.getEmail());
         startActivity(homeIntent);
     }
 
@@ -239,14 +262,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Log.d(TAG, "doInBackground: on Start " + Thread.currentThread());
             // Check if user is signed in (non-null).
             if(mCurrentUser !=null){
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        sendUserToHome();
-                    }
-                });
-
+                sendUserToHome();
             }else Log.d(TAG, "onStart: " + "No User Signed In");
         }
     }
+
 }

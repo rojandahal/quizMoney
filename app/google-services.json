@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "374812430563-jaaq22lu36rsb2f8kblv6ki3skpl6u6n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.quizmoney",
+            "certificate_hash": "9946dbc7f2e360651bae21684bc9110159657f9f"
+          }
+        },
+        {
           "client_id": "374812430563-79gqhkjah4luqr18b0fas3r0ac01d3pr.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -33,7 +41,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-7802798242650488~9816195639"
     }
   ],
   "configuration_version": "1"

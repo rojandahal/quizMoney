@@ -8,7 +8,7 @@
     <string name="your_phone_number">Your Phone Number</string>
     <string name="_977">+977</string>
     <string name="generate_otp">Generate OTP</string>
-    <string name="error_display">Please fill in the number to continue</string>
+    <string name="error_display">Please fill in the form to continue</string>
     <string name="enter_otp">Enter OTP</string>
     <string name="phone_veri_info">We have sent you an OTP for phone verification</string>
     <string name="verify_otp">Verify OTP</string>
@@ -22,4 +22,8 @@
     <string name="login">Login</string>
     <string name="signout">SignOut</string>
     <string name="verification_failed">Verification Failed, please try again.</string>
+    <string name="logo">Logo</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="email">Email</string>
 </resources>
