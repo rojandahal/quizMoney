@@ -155,6 +155,7 @@ public class HomeActivity extends AppCompatActivity {
                                     loadingText.setVisibility(View.INVISIBLE);
 //                                    signout.setVisibility(View.VISIBLE);
 //                                    successfulText.setVisibility(View.VISIBLE);
+                                    sendUserToMainMenu();
                                     Log.d(TAG, "run: " + "user Already Exists");
 
                                 }else if (!idFound){
@@ -165,6 +166,8 @@ public class HomeActivity extends AppCompatActivity {
                                     progressBar.setVisibility(View.INVISIBLE);
 //                                    successfulText.setVisibility(View.VISIBLE);
 //                                    signout.setVisibility(View.VISIBLE);
+
+                                    sendUserToMainMenu();
                                 }else {
 
                                 }
