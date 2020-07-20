@@ -26,4 +26,19 @@
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
     <string name="email">Email</string>
+    <string name="firebase_authentication_successful">Firebase Authentication Successful</string>
+    <string name="welcome_text">Welcome to game Username!</string>
+    <string name="coins">Coins: </string>
+    <string name="start_game">Start Game</string>
+    <string name="my_profile">My Profile</string>
+    <string name="credits_and_details">Credits and Details</string>
+    <string name="exit_the_game">Exit The Game</string>
+    <string name="score_points">0</string>
+    <string name="username">Username</string>
+    <string name="profile">profile</string>
+    <string name="insertimage">insertImage</string>
+    <string name="name_profile">Name:</string>
+    <string name="number">Number:</string>
+    <string name="share">SHARE</string>
+    <string name="payment">Payment</string>
 </resources>

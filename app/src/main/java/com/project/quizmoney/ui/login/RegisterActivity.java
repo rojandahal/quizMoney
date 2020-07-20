@@ -22,7 +22,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.project.quizmoney.data.HomeActivity;
+import com.project.quizmoney.Utils.LoginDetailsAPI;
+import com.project.quizmoney.data.LodingData;
 import com.project.quizmoney.R;
 import com.project.quizmoney.model.UserDetails;
 
@@ -77,13 +78,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      */
     private String TAG = "Register Activity";
 
-
+    /**
+     * This is the total phone number including the country code and the phone number
+     * as the country code and phone number is taken in two values then they are concatenated and made into single
+     * including the + sign before the country code
+     */
     private String totalPhoneNumber;
 
+    /**
+     * These are the edit text vales to get the text entered into the EditText view in the
+     * register activity so that they can be stored in the database
+     */
     private EditText firstName;
     private EditText lastName;
     private EditText emailAddress;
 
+    /**
+     * This user details is used
+     */
     private static UserDetails userDetails = new UserDetails();
 
     @Override
@@ -128,9 +140,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } else {
             //If the user types correct phone number then the progressBar is set to visible and
             //the register button is set to disable
-            userDetails.setValues(fstName,lstName,email,totalPhoneNumber);
+            LoginDetailsAPI loginDetailsAPI = LoginDetailsAPI.getInstance();
+            loginDetailsAPI.setFirstName(fstName);
+            loginDetailsAPI.setLastName(lstName);
+            loginDetailsAPI.setPhoneNumber(totalPhoneNumber);
+            loginDetailsAPI.setEmail(email);
+            Log.d(TAG, "savingData: " + loginDetailsAPI.getUserID() + loginDetailsAPI.getFirstName());
 
-            loginProcess.setVisibility(View.VISIBLE);
+            loginProcess = new ProgressBar(v.getContext());
             registerBtn.setEnabled(false);
             Log.d(TAG, "onClick: Sending Code");
 
@@ -195,11 +212,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         Intent otpIntent = new Intent(RegisterActivity.this,OtpActivity.class);
                                         otpIntent.putExtra("verificationID",s);
 
-                                        otpIntent.putExtra("phoneNumber",totalPhoneNumber);
-                                        otpIntent.putExtra("fname",userDetails.getFirstName());
-                                        otpIntent.putExtra("lname",userDetails.getLastName());
-                                        otpIntent.putExtra("email",userDetails.getEmail());
-
                                         startActivity(otpIntent);
                                     }
                                 },10000);
@@ -210,6 +222,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    /**
+     *This method is used to sign in using the phone authentication.
+     * If the credentials are correct and the sign is complete then this method checks it
+     * if the sign in occurs or not
+     */
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
 
         Log.d(TAG, "doInBackground: Inside signInWithPhone " + Thread.currentThread());
@@ -218,6 +235,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Log.d(TAG, "onComplete: Username" + mCurrentUser.getUid());
+
                             sendUserToHome();
                             // ...
                         } else {
@@ -233,25 +252,41 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 });
     }
 
-//    private void addItemToDatabase() {
-//        userDetails.runFireStore();
-//        userDetails.setUserID(mCurrentUser.getUid());
+
+//    private void savingData(){
+//
+//        LoginDetailsAPI loginDetailsAPI = LoginDetailsAPI.getInstance();
+//
+//        loginDetailsAPI.setFirstName(userDetails.getFirstName());
+//        loginDetailsAPI.setLastName(userDetails.getLastName());
+//        loginDetailsAPI.setPhoneNumber(userDetails.getPhoneNumber());
+//        loginDetailsAPI.setEmail(userDetails.getEmail());
+//        Log.d(TAG, "savingData: " + loginDetailsAPI.getUserID() + loginDetailsAPI.getFirstName());
 //    }
 
+    /**
+     * This method is used to send the user to the Loading Data activity where the data is loaded or
+     * added in the firebase database. This method is used after the authentication is complete and the user needs to access the
+     * game and its details
+     */
     private void sendUserToHome() {
 
-        Intent homeIntent = new Intent(this, HomeActivity.class);
+        Intent homeIntent = new Intent(this, LodingData.class);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        homeIntent.putExtra("phoneNumber",totalPhoneNumber);
-        homeIntent.putExtra("fname",userDetails.getFirstName());
-        homeIntent.putExtra("lname",userDetails.getLastName());
-        homeIntent.putExtra("email",userDetails.getEmail());
         startActivity(homeIntent);
     }
 
+    /**
+     * This inner class is use to execute code in the background thread. The code inside this class run()
+     * method is executed in the background thread (According to me ) but I couldn't close this thread after execution
+     * This thread work migh be attached to the register activity and its components.
+     */
     class firebaseAccess extends Thread{
 
+        /**
+         * Getting the instance of the firebase authentication and the current user associated with the authentication
+         */
         public firebaseAccess() {
             mAuth = FirebaseAuth.getInstance(); //Instancing the firebase authentication object
             mCurrentUser = mAuth.getCurrentUser();      //Getting the current user object from the firebase
@@ -266,5 +301,4 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }else Log.d(TAG, "onStart: " + "No User Signed In");
         }
     }
-
 }
