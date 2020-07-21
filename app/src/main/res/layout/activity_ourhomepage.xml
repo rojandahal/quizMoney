@@ -1,68 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ourhomepage">
+    android:background="@color/theme"
+    android:padding="6dp">
 
-    <Button
-        android:id="@+id/startgame"
-        android:layout_width="270dp"
-        android:layout_height="58dp"
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/menutopwhiteview" />
 
-        android:layout_marginTop="348dp"
-        android:background="@drawable/menubtn"
-        android:fontFamily="@font/bold"
-        android:text="Start Game"
-        android:textColor="@color/red"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="270dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/menubtn"
-        android:fontFamily="@font/bold"
-        android:text="My Profile"
-        android:textColor="@color/green"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startgame" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="270dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/menubtn"
-        android:fontFamily="@font/bold"
-        android:text="Credits and Details"
-        android:textColor="@color/yellow"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="270dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/menubtn"
-        android:fontFamily="@font/bold"
-        android:text="Exit The Game"
-        android:textColor="@color/white"
+    <TextView
+        android:id="@+id/welcome_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_text"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:id="@+id/internalLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/coinView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/coins"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="8dp"
+            android:drawableStart="@drawable/coin"
+            android:padding="4dp" />
+
+        <TextView
+            android:id="@+id/scorePoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:fontFamily="@font/bold"
+            android:textColor="@color/red"
+            android:text="@string/score_points"
+            android:padding="4dp"/>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/internalLinearLayout"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/logo"
+        app:srcCompat="@drawable/splash_logo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/logoImage"
+        android:gravity="center"
+        android:layout_marginTop="32dp">
+
+        <Button
+            android:id="@+id/startGame"
+            android:layout_width="270dp"
+            android:layout_height="58dp"
+            android:background="@drawable/menubtn"
+            android:fontFamily="@font/bold"
+            android:text="@string/start_game"
+            android:textColor="@color/red"
+            android:textSize="28sp" />
+
+        <Button
+        android:id="@+id/myProfile"
+        android:layout_width="270dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/menubtn"
+        android:fontFamily="@font/bold"
+        android:text="@string/my_profile"
+        android:textColor="@color/green"
+        android:textSize="28sp" />
+
+    <Button
+        android:id="@+id/credits"
+        android:layout_width="270dp"
+        android:layout_height="58dp"
+        android:background="@drawable/menubtn"
+        android:fontFamily="@font/bold"
+        android:layout_marginTop="8dp"
+        android:text="@string/credits_and_details"
+        android:textColor="@color/yellow"
+        android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/exitGame"
+        android:layout_width="270dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/menubtn"
+        android:fontFamily="@font/bold"
+        android:text="@string/exit_the_game"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signout"
+            android:layout_marginTop="8dp"
+            android:visibility="visible"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

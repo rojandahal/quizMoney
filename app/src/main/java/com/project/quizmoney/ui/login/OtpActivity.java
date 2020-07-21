@@ -23,7 +23,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.project.quizmoney.data.HomeActivity;
+import com.project.quizmoney.Utils.LoginDetailsAPI;
+import com.project.quizmoney.data.LodingData;
 import com.project.quizmoney.R;
 
 
@@ -94,11 +95,11 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
        setCountDownTimer();
 
         //Extracting verification id from the extra put in RegisterActivity when calling this activity
-        verificationId = getIntent().getStringExtra("verificationID");
-        fstName = getIntent().getStringExtra("fname");
-        lstName = getIntent().getStringExtra("lname");
-        email = getIntent().getStringExtra("email");
-        phoneNumber = getIntent().getStringExtra("phoneNumber");
+       verificationId = getIntent().getStringExtra("verificationID");
+//        fstName = getIntent().getStringExtra("fname");
+//        lstName = getIntent().getStringExtra("lname");
+//        email = getIntent().getStringExtra("email");
+//        phoneNumber = getIntent().getStringExtra("phoneNumber");
 
         verifyOtp.setOnClickListener(this);
     }
@@ -158,17 +159,21 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
      * This method sends the user to the MainActivity Page when the verification is successful
      */
     private void sendUserToHome(){
-        Intent homeIntent = new Intent(this, HomeActivity.class);
+        Intent homeIntent = new Intent(this, LodingData.class);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        homeIntent.putExtra("phoneNumber",phoneNumber);
-        homeIntent.putExtra("fname",fstName);
-        homeIntent.putExtra("lname",lstName);
-        homeIntent.putExtra("email",email);
+//        homeIntent.putExtra("phoneNumber",phoneNumber);
+//        homeIntent.putExtra("fname",fstName);
+//        homeIntent.putExtra("lname",lstName);
+//        homeIntent.putExtra("email",email);
         startActivity(homeIntent);
 
     }
 
+    /**
+     * When resend button is clicked this method is invoked which will send the activity to the register activity
+     * and the user needs to enter all the values once again to again register and be in the otp activity
+     */
     public void setResendCode(){
 
         Intent registerIntent = new Intent(this, RegisterActivity.class);
@@ -177,6 +182,10 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
         startActivity(registerIntent);
     }
 
+    /**
+     * This method is used to set the otp to the verificationID and signIn using the credentials set using the verification
+     * i.e signInWithAuthCredentials checks the otp with the otp send by the firebase and verifies the authentication
+     */
     private void setVerifyOtp(){
 
         final String otp = mOtpNumber.getText().toString();
@@ -201,6 +210,10 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    /**
+     * This method is used to set the timer to 60 second to click the resend button if the otp is not received
+     * in 60 seconds then the resend button can be clicked to send the otp again
+     */
     public void setCountDownTimer(){
         new CountDownTimer(60000, 1000) {
             @Override
@@ -212,6 +225,8 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
             @SuppressLint("ResourceAsColor")
             @Override
             public void onFinish() {
+                //When the 60 seconds is finished then the resendCode color is changed and it can be clicked
+
                 Log.d(TAG, "onFinish: " + counter + " finished");
                 resendCode.setEnabled(true);
                 resendCode.setTextColor(R.color.theme_red);
@@ -221,6 +236,10 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    /**
+     * On activity start if the user is signed in i.e current user is not null
+     * then this activity is finished as this happens when the user is authenticated directly from the register activity
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -231,4 +250,11 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
         }else Log.d(TAG, "onStart: " + "No User Signed In");
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Log.d(TAG, "onStop: " + LoginDetailsAPI.getInstance().getUserID() + LoginDetailsAPI.getInstance().getFirstName());
+        finish();
+    }
 }

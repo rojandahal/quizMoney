@@ -16,6 +16,7 @@
         android:layout_marginBottom="249dp"
         android:text="@string/signout"
         android:visibility="invisible"
+        android:clickable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -55,7 +56,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="67dp"
         android:fontFamily="@font/bold"
-        android:text="Firebase Authentication Successful"
+        android:text="@string/firebase_authentication_successful"
         android:textAlignment="center"
         android:textColor="@color/theme_red"
         android:textSize="40dp"
