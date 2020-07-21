@@ -3,8 +3,11 @@ package com.project.quizmoney;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -16,11 +19,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.quizmoney.model.UserDetails;
 
 public class OurHomePage extends AppCompatActivity {
+    private Button startgame;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ourhomepage);
+
+
+
+
 
 
         class backgroundThread extends Thread{

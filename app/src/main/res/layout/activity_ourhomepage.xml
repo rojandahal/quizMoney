@@ -7,7 +7,7 @@
     android:background="@drawable/ourhomepage">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/startgame"
         android:layout_width="270dp"
         android:layout_height="58dp"
 
@@ -35,7 +35,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/startgame" />
 
     <Button
         android:id="@+id/button3"
