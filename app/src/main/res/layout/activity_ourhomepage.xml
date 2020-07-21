@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:text="@string/signout"
             android:layout_marginTop="8dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             />
 
     </LinearLayout>

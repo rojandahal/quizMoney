@@ -211,8 +211,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         Log.d(TAG, "onCodeSent: " + " Code is Sent");
                                         Intent otpIntent = new Intent(RegisterActivity.this,OtpActivity.class);
                                         otpIntent.putExtra("verificationID",s);
-
                                         startActivity(otpIntent);
+
                                     }
                                 },10000);
                     }
