@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false"
+        android:bottom="8dp"
+        android:right="16dp">
         <shape>
             <solid android:color="@color/disable_btn"/>
-            <corners android:radius="200dp"/>
+            <corners android:radius="100dp"/>
         </shape>
     </item>
 
     <item>
         <shape>
-            <solid android:color="@color/black"/>
+            <solid android:color="@color/grey"/>
             <corners android:radius="200dp"/>
         </shape>
     </item>
 
-</selector>
+
+
+</layer-list>

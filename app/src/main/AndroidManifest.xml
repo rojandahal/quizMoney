@@ -40,6 +40,10 @@
         <activity
             android:name=".data.LodingData"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ingame"
+            android:theme="@style/AppTheme" />
+
     </application>
 
 </manifest>
