@@ -129,6 +129,8 @@ public class OurHomePage extends AppCompatActivity implements View.OnClickListen
             case R.id.startGame:
                 //Code which transfer to the start game should be included
                 Log.d(TAG, "onClick: Start Game");
+                Intent startGameIntent = new Intent(OurHomePage.this,ingame.class);
+                OurHomePage.this.startActivity(startGameIntent);
                 break;
 
             //When myProfile is clicked

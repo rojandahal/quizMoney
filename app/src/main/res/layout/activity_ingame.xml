@@ -1,66 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/ingamebackground"
     tools:context=".ingame">
 
+        <LinearLayout
+            android:id="@+id/linearUpper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="413dp"
-        android:layout_height="373dp"
-        android:background="@color/theme"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
+                android:src="@drawable/ic_logo" />
 
-    <TextView
-        android:id="@+id/textView3"
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="145dp"
+                android:fontFamily="@font/bold"
+                android:text="  ?Question?Question?"
+                android:background="@color/white"
+                android:layout_marginTop="8dp"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:gravity="center"
+                android:text="7/10"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/bold"
-        android:text="Question?"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.24000001" />
+        android:orientation="vertical"
+        android:layout_below="@id/linearUpper"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        >
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="203dp"
-        android:layout_height="138dp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.16000003"
-        app:srcCompat="@drawable/ic_logo" />
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="320dp"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/optionbtn"
+            android:text="Button"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="320dp"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/optionbtn"
+            android:text="Button"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
 
-        android:text="5/10"
-        android:textSize="28sp"
-        tools:layout_editor_absoluteX="166dp"
-        tools:layout_editor_absoluteY="331dp" />
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="320dp"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/optionbtn"
+            android:text="Button"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/button8"
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="320dp"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/optionbtn"
+            android:text="Button"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="522dp" />
 
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

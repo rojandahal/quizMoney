@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme"
+    android:background="@drawable/backgroundpng"
     android:padding="6dp">
 
     <View
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="@string/coins"
             android:textSize="24sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_marginStart="8dp"
             android:drawableStart="@drawable/coin"
             android:padding="4dp" />
@@ -88,7 +88,7 @@
         android:background="@drawable/menubtn"
         android:fontFamily="@font/bold"
         android:text="@string/my_profile"
-        android:textColor="@color/green"
+            android:textColor="@color/black"
         android:textSize="28sp" />
 
     <Button
@@ -99,7 +99,7 @@
         android:fontFamily="@font/bold"
         android:layout_marginTop="8dp"
         android:text="@string/credits_and_details"
-        android:textColor="@color/yellow"
+        android:textColor="@color/black"
         android:textSize="22sp" />
 
     <Button
@@ -110,7 +110,7 @@
         android:background="@drawable/menubtn"
         android:fontFamily="@font/bold"
         android:text="@string/exit_the_game"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="24sp" />
 
         <Button
