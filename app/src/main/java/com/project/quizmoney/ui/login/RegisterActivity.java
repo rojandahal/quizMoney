@@ -177,14 +177,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void setCallbacks(){
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
                 // This will set the callBack when the code is sent or verification is complete or the verification is failed
                 mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
                     public void onVerificationCompleted(@NonNull final PhoneAuthCredential phoneAuthCredential) {
-                        signInWithPhoneAuthCredential(phoneAuthCredential);
+                       signInWithPhoneAuthCredential(phoneAuthCredential);
                     }
 
                     @Override
@@ -217,9 +214,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 },10000);
                     }
                 };
-            }
-        }).start();
-
     }
 
     /**

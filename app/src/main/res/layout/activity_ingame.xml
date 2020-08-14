@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ingamebackground"
-    tools:context=".ingame">
+    tools:context=".InGame">
+
 
         <LinearLayout
             android:id="@+id/linearUpper"
@@ -20,17 +21,17 @@
                 android:src="@drawable/ic_logo" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/question"
                 android:layout_width="match_parent"
                 android:layout_height="145dp"
                 android:fontFamily="@font/bold"
-                android:text="  ?Question?Question?"
+                android:text="Question"
                 android:background="@color/white"
                 android:layout_marginTop="8dp"
                 android:textSize="22sp" />
 
             <TextView
-                android:id="@+id/number"
+                android:id="@+id/no_indicator"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:gravity="center"
@@ -39,13 +40,13 @@
         </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/options"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="298dp"
         android:layout_below="@id/linearUpper"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="4dp"
-        >
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/button7"
@@ -53,11 +54,10 @@
             android:layout_height="62dp"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:background="@drawable/optionbtn"
+            android:background="@drawable/next_btn"
             android:text="Button"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/button8"
@@ -65,11 +65,10 @@
             android:layout_height="62dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@drawable/optionbtn"
+            android:background="@drawable/next_btn"
             android:text="Button"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/button9"
@@ -77,7 +76,7 @@
             android:layout_height="62dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@drawable/optionbtn"
+            android:background="@drawable/next_btn"
             android:text="Button"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -88,11 +87,26 @@
             android:layout_height="62dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@drawable/optionbtn"
+            android:background="@drawable/next_btn"
             android:text="Button"
             android:textColor="@color/white"
             android:textSize="20sp" />
+
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/nxtbtn"
+        android:layout_width="145dp"
+        android:layout_height="62dp"
+        android:layout_below="@id/options"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/next_btn"
+        android:text="Next"
+        android:enabled="false"
+        android:alpha="0.38"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
 
 </RelativeLayout>
