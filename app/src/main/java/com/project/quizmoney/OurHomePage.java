@@ -1,6 +1,5 @@
 package com.project.quizmoney;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -11,18 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.quizmoney.Utils.LoginDetailsAPI;
-import com.project.quizmoney.data.LodingData;
-import com.project.quizmoney.model.UserDetails;
-
-import org.w3c.dom.Text;
 
 public class OurHomePage extends AppCompatActivity implements View.OnClickListener {
 
@@ -115,8 +104,6 @@ public class OurHomePage extends AppCompatActivity implements View.OnClickListen
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(homeIntent);
-        finish();
-
     }
 
 
@@ -128,9 +115,9 @@ public class OurHomePage extends AppCompatActivity implements View.OnClickListen
             //When start game is clicked
             case R.id.startGame:
                 //Code which transfer to the start game should be included
+                Intent startGameIntent = new Intent(this, InGame.class);
+                startActivity(startGameIntent);
                 Log.d(TAG, "onClick: Start Game");
-                Intent startGameIntent = new Intent(OurHomePage.this,ingame.class);
-                OurHomePage.this.startActivity(startGameIntent);
                 break;
 
             //When myProfile is clicked
@@ -162,9 +149,4 @@ public class OurHomePage extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        finish();
-    }
 }
