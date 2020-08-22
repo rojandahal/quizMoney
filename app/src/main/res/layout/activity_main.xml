@@ -18,14 +18,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="389dp"
+        android:layout_height="213dp"
+        android:layout_centerHorizontal="true"
         android:contentDescription="@string/logo"
+        android:paddingTop="22dp"
         app:srcCompat="@drawable/splash_logo"
         tools:layout_editor_absoluteX="265dp"
-        tools:layout_editor_absoluteY="67dp"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="22dp"/>
+        tools:layout_editor_absoluteY="67dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

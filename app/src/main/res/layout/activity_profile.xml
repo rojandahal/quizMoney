@@ -11,7 +11,7 @@
     <View
         android:id="@+id/view"
         android:layout_width="413dp"
-        android:layout_height="225dp"
+        android:layout_height="200dp"
         android:background="@drawable/menutopwhiteview"/>
 
     <ImageView
@@ -21,7 +21,7 @@
         android:layout_marginTop="8dp"
         android:contentDescription="@string/profile"
         android:foregroundGravity="center"
-        android:src="@drawable/profile" />
+        tools:src="@drawable/profile" />
 
     <ImageView
         android:id="@+id/insertImage"
@@ -36,21 +36,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/profilePic"
-        android:layout_marginTop="8dp"
-        android:textSize="25sp"
+        android:layout_marginTop="4dp"
+        android:textSize="20sp"
         android:gravity="center"
         android:text="@string/username" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/statLeader"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/stats"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menubtn"
+            android:layout_marginStart="25dp"
+            android:text="@string/statistic"
+            android:fontFamily="@font/bold"
+            android:textColor="@color/red"
+            android:textSize="16sp"/>
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menubtn"
+            android:layout_marginStart="25dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bold"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:text="@string/leaderboard"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/statLeader"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <TextView
@@ -64,10 +98,11 @@
                 android:paddingEnd="8dp"/>
 
             <TextView
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/APP_NAME"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="16dp"
                 android:paddingEnd="8dp" />
@@ -90,10 +125,11 @@
                 android:paddingEnd="8dp"/>
 
             <TextView
+                android:id="@+id/phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/your_phone_number"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -102,7 +138,6 @@
             android:id="@+id/internalRelative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/logoImage"
             android:layout_marginTop="8dp">
 
             <androidx.cardview.widget.CardView
@@ -130,6 +165,7 @@
                         android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/coinValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/coins"
@@ -146,7 +182,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/shareButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -159,7 +195,7 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/paymentButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/normal_curve_radius"

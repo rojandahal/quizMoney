@@ -229,8 +229,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "onComplete: Username" + mCurrentUser.getUid());
-
+                            //Log.d(TAG, "onComplete: Username" + mCurrentUser.getUid());
                             sendUserToHome();
                             // ...
                         } else {

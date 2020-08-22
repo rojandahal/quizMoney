@@ -41,4 +41,13 @@
     <string name="number">Number:</string>
     <string name="share">SHARE</string>
     <string name="payment">Payment</string>
+    <string name="imageview">ImageView</string>
+    <string name="statistic">Statistic</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="question">Question</string>
+    <string name="_7_10">7/10</string>
+    <string name="button">Button</string>
+    <string name="next">Next</string>
+    <string name="loading_data">Loading Data...</string>
+    <string name="blackColor">#FF0B0101</string>
 </resources>

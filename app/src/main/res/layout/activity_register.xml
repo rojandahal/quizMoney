@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroound_login" >
+    android:background="@drawable/backgroound_login">
 
     <View
         android:id="@+id/view"
@@ -48,7 +46,7 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:layout_gravity="center"
-            android:drawableLeft="@drawable/user"
+            android:drawableStart="@drawable/user"
             android:ems="10"
             android:hint="@string/first_name"
             android:inputType="textPersonName" />

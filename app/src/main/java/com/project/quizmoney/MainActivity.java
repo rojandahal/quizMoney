@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.quizmoney.data.LodingData;
+import com.project.quizmoney.data.QuestionBank;
 import com.project.quizmoney.ui.login.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sendUserToHome();
 
         }else Log.d(TAG, "onStart: " + "No User Signed In");
+
     }
 
     @Override

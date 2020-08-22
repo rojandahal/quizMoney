@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.project.quizmoney.Utils.LoginDetailsAPI;
+import com.project.quizmoney.data.QuestionBank;
 
 public class OurHomePage extends AppCompatActivity implements View.OnClickListener {
 
@@ -123,6 +124,7 @@ public class OurHomePage extends AppCompatActivity implements View.OnClickListen
             //When myProfile is clicked
             case R.id.myProfile:
                 //Code to open profile
+                startActivity(new Intent(this,ProfileActivity.class));
                 Log.d(TAG, "onClick: Profile");
                 break;
 
@@ -145,8 +147,12 @@ public class OurHomePage extends AppCompatActivity implements View.OnClickListen
                 finish();
                 break;
         }
-
-
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onResume: Resumed");
+        new QuestionBank().getQuestions();
+    }
 }

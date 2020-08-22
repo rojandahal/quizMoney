@@ -55,11 +55,12 @@
 
     <ImageView
         android:id="@+id/logoImage"
-        android:layout_width="match_parent"
+        android:layout_width="405dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/internalLinearLayout"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/logo"
+        android:padding="4dp"
         app:srcCompat="@drawable/splash_logo" />
 
     <LinearLayout
@@ -76,6 +77,8 @@
             android:layout_height="58dp"
             android:background="@drawable/menubtn"
             android:fontFamily="@font/bold"
+            android:shadowColor="@color/white"
+            android:shadowRadius="4"
             android:text="@string/start_game"
             android:textColor="@color/red"
             android:textSize="28sp" />
