@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Statistics"></activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".OurHomePage" />
 
@@ -38,11 +39,11 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".data.LodingData"
+            android:name=".data.LoadingData"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".InGame"
             android:theme="@style/AppTheme" />
-
     </application>
+
 </manifest>

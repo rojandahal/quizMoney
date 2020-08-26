@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Statistics"
+    android:background="@drawable/backgroound_login">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Statistics"
+        android:gravity="center"
+        android:textSize="26sp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:id="@+id/stats_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_below="@id/textView3"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/level"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bold"/>
+
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/one"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewXp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/xp"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bold"/>
+
+            <TextView
+                android:id="@+id/xpText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/one"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_questions_attempt"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bold"/>
+
+            <TextView
+                android:id="@+id/questionsAttempt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/one"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_questions_solved"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bold"/>
+
+            <TextView
+                android:id="@+id/questionSolved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/one"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_sets_solved"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bold"/>
+
+            <TextView
+                android:id="@+id/setsSolved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/one"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bold" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_below="@id/stats_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="back"
+        android:background="@drawable/arrow_back_to"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

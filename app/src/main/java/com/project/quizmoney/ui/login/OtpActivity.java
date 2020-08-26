@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.project.quizmoney.Utils.LoginDetailsAPI;
-import com.project.quizmoney.data.LodingData;
+import com.project.quizmoney.data.LoadingData;
 import com.project.quizmoney.R;
 
 
@@ -159,7 +159,7 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
      * This method sends the user to the MainActivity Page when the verification is successful
      */
     private void sendUserToHome(){
-        Intent homeIntent = new Intent(this, LodingData.class);
+        Intent homeIntent = new Intent(this, LoadingData.class);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //        homeIntent.putExtra("phoneNumber",phoneNumber);

@@ -50,4 +50,11 @@
     <string name="next">Next</string>
     <string name="loading_data">Loading Data...</string>
     <string name="blackColor">#FF0B0101</string>
+    <string name="one">1</string>
+    <string name="total_sets_solved">Total sets solved:</string>
+    <string name="total_questions_solved">Total questions solved:</string>
+    <string name="total_questions_attempt">Total questions attempt:</string>
+    <string name="level">Level:</string>
+    <string name="rs">Rupees</string>
+    <string name="xp">XP</string>
 </resources>

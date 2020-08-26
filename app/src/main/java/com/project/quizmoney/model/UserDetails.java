@@ -45,6 +45,14 @@ public class UserDetails  {
     private String phoneNumber;
     private String userID;
 
+    private int coin;
+    private int level;
+    private int score;
+    private int xp ;
+    private int totalQuestionAttempt;
+    private int totalQuestionsSolved;
+    private int totalSetsSolved;
+
     /**
      * Firebase auth and firebase user used to access the current user and current authentication
      */
@@ -68,11 +76,19 @@ public class UserDetails  {
      * Constructor to set the values to the users if we want to set values directly without
      * making the object and invoking method
      */
-    public UserDetails(String firstName, String lastName, String email, String phoneNumber) {
+
+    public UserDetails(String firstName, String lastName, String email, String phoneNumber, int score, int xp,
+                       int totalQuestionAttempt, int totalQuestionsSolved, int totalSetsSolved) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.score = score;
+        this.xp = xp;
+        this.totalQuestionAttempt = totalQuestionAttempt;
+        this.totalQuestionsSolved = totalQuestionsSolved;
+        this.totalSetsSolved = totalSetsSolved;
     }
 
     /**
@@ -80,12 +96,21 @@ public class UserDetails  {
      * the data saved or the variable value saved in this class is valid only in the class
      * from which it is call and if that activity closes then these values will also reset
      */
-    public void setValues(String firstName, String lastName, String email, String phoneNumber) {
+    public void setValues(String firstName, String lastName, String email, String phoneNumber,
+                          int score, int xp, int totalQuestionAttempt, int totalQuestionsSolved, int totalSetsSolved,
+                          int coin, int level) {
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.score = score;
+        this.xp = xp;
+        this.totalQuestionAttempt = totalQuestionAttempt;
+        this.totalQuestionsSolved = totalQuestionsSolved;
+        this.totalSetsSolved = totalSetsSolved;
+        this.coin= coin;
+        this.level= level;
 
     }
 
@@ -115,6 +140,14 @@ public class UserDetails  {
             userObj.put("lastName",lastName);
             userObj.put("email",email);
             userObj.put("phoneNumber",phoneNumber);
+            userObj.put("score",String.valueOf(score));
+            userObj.put("xp",String.valueOf(xp));
+            userObj.put("totalQuestionAttempt",String.valueOf(totalQuestionAttempt));
+            userObj.put("totalQuestionSolved",String.valueOf(totalQuestionsSolved));
+            userObj.put("totalSetsSolved",String.valueOf(totalSetsSolved));
+            userObj.put("coin",String.valueOf(coin));
+            userObj.put("level",String.valueOf(level));
+
 
             collectionReference.add(userObj)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -151,5 +184,25 @@ public class UserDetails  {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public int getTotalQuestionAttempt() {
+        return totalQuestionAttempt;
+    }
+
+    public int getTotalQuestionsSolved() {
+        return totalQuestionsSolved;
+    }
+
+    public int getTotalSetsSolved() {
+        return totalSetsSolved;
     }
 }

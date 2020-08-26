@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,12 +26,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private ImageView profilePic;
     private ImageView insertImage;
 
+    private String TAG = "Profile Activity";
 
     private TextView coinValue;
 
     private TextView name;
     private TextView phoneNumber;
 
+    private Button stats;
+    private Button leaderBoard;
     private TextView shareButton;
     private TextView username;
 
@@ -66,6 +70,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         name = findViewById(R.id.name);
         phoneNumber = findViewById(R.id.phoneNumber);
         username = findViewById(R.id.username);
+        stats = findViewById(R.id.stats);
+        leaderBoard = findViewById(R.id.leaderBoard);
 
         shareButton = findViewById(R.id.shareButton);
         paymentButton = findViewById(R.id.paymentButton);
@@ -75,7 +81,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         username.setText(loginDetailsAPI.getFirstName());
 
         insertImage.setOnClickListener(this);
-
+        stats.setOnClickListener(this);
+        leaderBoard.setOnClickListener(this);
 
 
     }
@@ -113,6 +120,21 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.insertImage:
                 //inserting profile pic here
                 saveProfilePic();
+                break;
+            case R.id.stats:
+                //Statistics activity to be called
+                Log.d(TAG, "onClick: Statistics called" );
+                startActivity(new Intent(ProfileActivity.this,Statistics.class));
+                finish();
+                break;
+            case R.id.leaderBoard:
+                //Leader board to be called
+                break;
+            case R.id.shareButton:
+                //share activity to be called
+                break;
+            case R.id.paymentButton:
+                //payment activity to be called
                 break;
         }
     }

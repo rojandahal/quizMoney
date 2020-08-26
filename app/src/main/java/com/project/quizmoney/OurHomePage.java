@@ -65,6 +65,11 @@ public class OurHomePage extends AppCompatActivity implements View.OnClickListen
      */
     private Button exitGame;
 
+    /**
+     * This is for coin
+     */
+    private TextView coinView;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +82,10 @@ public class OurHomePage extends AppCompatActivity implements View.OnClickListen
         myProfile = findViewById(R.id.myProfile);
         credits = findViewById(R.id.credits);
         exitGame = findViewById(R.id.exitGame);
+        coinView = findViewById(R.id.scorePoints);
 
         welcomeText.setText("Welcome to game " + loginDetailsAPI.getFirstName() + " !");
+        coinView.setText(String.valueOf(loginDetailsAPI.getCoin()));
 
         //Setting the on click listeners
         startGame.setOnClickListener(this);

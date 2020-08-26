@@ -50,6 +50,7 @@
             android:text="@string/score_points"
             android:padding="4dp"/>
 
+
     </LinearLayout>
 
 

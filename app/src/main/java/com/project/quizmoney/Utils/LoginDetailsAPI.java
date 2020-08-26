@@ -3,7 +3,6 @@ package com.project.quizmoney.Utils;
 import android.app.Application;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,6 +31,75 @@ public class LoginDetailsAPI extends Application {
     private String email;
 
     private List<QuestionModel> _qBankList = new ArrayList<>();
+
+    /**
+     * ************************Score related data of the user***************************
+     */
+
+    private int coin =0;
+    private int level=1;
+    private int score = 0;
+    private int xp = 0;
+    private int totalQuestionAttempt = 0;
+    private int totalQuestionsSolved= 0;
+    private int totalSetsSolved= 0;
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score + this.score;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp + this.xp;
+    }
+
+    public int getTotalQuestionAttempt() {
+        return totalQuestionAttempt;
+    }
+
+    public void setTotalQuestionAttempt(int totalQuestionAttempt) {
+        this.totalQuestionAttempt = totalQuestionAttempt + this.totalQuestionAttempt;
+    }
+
+    public int getTotalQuestionsSolved() {
+        return totalQuestionsSolved;
+    }
+
+    public void setTotalQuestionsSolved(int totalQuestionsSolved) {
+        this.totalQuestionsSolved = totalQuestionsSolved + this.totalQuestionsSolved;
+    }
+
+    public int getTotalSetsSolved() {
+        return totalSetsSolved;
+    }
+
+    public void setTotalSetsSolved(int totalSetsSolved) {
+        this.totalSetsSolved = totalSetsSolved + this.totalSetsSolved;
+    }
+
+    public int getCoin() {
+        return coin;
+    }
+
+    public void setCoin(int coin) {
+        this.coin = coin;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    /** **********************************Score Related Data Enclosed*********************************************** **/
 
     /**
      * Static instance of the class

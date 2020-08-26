@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.project.quizmoney.Utils.LoginDetailsAPI;
-import com.project.quizmoney.data.LodingData;
+import com.project.quizmoney.data.LoadingData;
 import com.project.quizmoney.R;
 import com.project.quizmoney.model.UserDetails;
 
@@ -264,7 +264,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      */
     private void sendUserToHome() {
 
-        Intent homeIntent = new Intent(this, LodingData.class);
+        Intent homeIntent = new Intent(this, LoadingData.class);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(homeIntent);

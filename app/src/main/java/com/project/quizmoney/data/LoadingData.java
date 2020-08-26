@@ -16,10 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.project.quizmoney.MainActivity;
@@ -28,7 +25,6 @@ import com.project.quizmoney.R;
 import com.project.quizmoney.Utils.LoginDetailsAPI;
 import com.project.quizmoney.model.UserDetails;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -41,7 +37,7 @@ import java.util.Objects;
  * The document is firebase is looped to get the data and store here
  *
  */
-public class LodingData extends AppCompatActivity{
+public class LoadingData extends AppCompatActivity{
 
     /**
      * This is a TAG string used to debug
@@ -53,7 +49,7 @@ public class LodingData extends AppCompatActivity{
      * This button is  invisible. This button was created to check the validity of the class whether
      * it worked or not and what happend after the signout
      */
-    private Button signout;
+    private Button signOut;
 
     /**
      * This is the circular progress bar which works until the result from the database is not got
@@ -83,7 +79,7 @@ public class LodingData extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-        signout = findViewById(R.id.signout);
+        signOut = findViewById(R.id.signout);
         progressBar = findViewById(R.id.loadingFirebase);
         loadingText = findViewById(R.id.loadingText);
         successfulText = findViewById(R.id.successText);
@@ -134,6 +130,14 @@ public class LodingData extends AppCompatActivity{
         private String phoneNumber;
         private String documentId;
 
+        private int coin;
+        private int level;
+        private int score;
+        private int xp ;
+        private int totalQuestionAttempt;
+        private int totalQuestionsSolved;
+        private int totalSetsSolved;
+
         private Boolean idFound = false;
 
         /**
@@ -150,6 +154,14 @@ public class LodingData extends AppCompatActivity{
             lstName = loginDetailsAPI.getLastName();
             email = loginDetailsAPI.getEmail();
             phoneNumber = loginDetailsAPI.getPhoneNumber();
+            score = loginDetailsAPI.getScore();
+            xp = loginDetailsAPI.getXp();
+            totalQuestionAttempt = loginDetailsAPI.getTotalQuestionAttempt();
+            totalQuestionsSolved = loginDetailsAPI.getTotalQuestionsSolved();
+            totalSetsSolved = loginDetailsAPI.getTotalSetsSolved();
+            coin = loginDetailsAPI.getCoin();
+            level= loginDetailsAPI.getLevel();
+
             loginDetailsAPI.setUserID(firebaseUser.getUid());
 
         }
@@ -185,6 +197,13 @@ public class LodingData extends AppCompatActivity{
                                         loginDetailsAPI.setLastName(document.getData().get("lastName").toString());
                                         loginDetailsAPI.setEmail(document.getData().get("email").toString());
                                         loginDetailsAPI.setPhoneNumber(document.getString("phoneNumber"));
+                                        loginDetailsAPI.setScore(Integer.parseInt(document.getString("score")));
+                                        loginDetailsAPI.setXp(Integer.parseInt(document.getString("xp")));
+                                        loginDetailsAPI.setTotalQuestionAttempt(Integer.parseInt(document.getString("totalQuestionAttempt")));
+                                        loginDetailsAPI.setTotalQuestionsSolved(Integer.parseInt(document.getString("totalQuestionSolved")));
+                                        loginDetailsAPI.setTotalSetsSolved(Integer.parseInt(document.getString("totalSetsSolved")));
+                                        loginDetailsAPI.setCoin(Integer.parseInt(document.getString("coin")));
+                                        loginDetailsAPI.setLevel(Integer.parseInt(document.getString("level")));
 
 //                                        Log.d(TAG, "onComplete: Phone: " + document.getData().get("firstName") + " Document ID: " + documentId);
 //                                        Log.d(TAG, "onComplete: Account Firestore exists " + document.getData().get("phoneNumber"));
@@ -205,7 +224,8 @@ public class LodingData extends AppCompatActivity{
 
                                     //If user is NOT found then the userDetails is added to the firebase database
                                     userDetails.setUserID(firebaseUser.getUid());
-                                    userDetails.setValues(fstName,lstName,email,phoneNumber);
+                                    userDetails.setValues(fstName,lstName,email,phoneNumber,score,xp,totalQuestionAttempt,
+                                            totalQuestionsSolved,totalSetsSolved,coin,level);
                                     userDetails.runFireStore();
                                     disableButtons();
                                     sendUserToMainMenu();
@@ -226,7 +246,7 @@ public class LodingData extends AppCompatActivity{
          */
         private void sendUserToMainMenu(){
 
-            Intent homeIntent = new Intent(LodingData.this, OurHomePage.class);
+            Intent homeIntent = new Intent(LoadingData.this, OurHomePage.class);
             homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(homeIntent);
