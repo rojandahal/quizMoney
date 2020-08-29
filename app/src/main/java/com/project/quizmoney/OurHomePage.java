@@ -162,4 +162,10 @@ public class OurHomePage extends AppCompatActivity implements View.OnClickListen
         Log.d(TAG, "onResume: Resumed");
         new QuestionBank().getQuestions();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        loginDetailsAPI.resetQuestionModel();
+    }
 }

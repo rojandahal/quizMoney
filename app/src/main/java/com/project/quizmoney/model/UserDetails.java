@@ -1,5 +1,6 @@
 package com.project.quizmoney.model;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -54,41 +55,9 @@ public class UserDetails  {
     private int totalSetsSolved;
 
     /**
-     * Firebase auth and firebase user used to access the current user and current authentication
-     */
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    /**
-     * Collection reference of the firebase database of the collection path "Users"
-     * This is the instance of the Users collection made in the firebase which includes different types of data to store
-     */
-    private CollectionReference collectionReference = db.collection("Users");
-
-    /**
      * Empty constructor
      */
     public UserDetails() {
-    }
-
-    /**
-     * Constructor to set the values to the users if we want to set values directly without
-     * making the object and invoking method
-     */
-
-    public UserDetails(String firstName, String lastName, String email, String phoneNumber, int score, int xp,
-                       int totalQuestionAttempt, int totalQuestionsSolved, int totalSetsSolved) {
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.score = score;
-        this.xp = xp;
-        this.totalQuestionAttempt = totalQuestionAttempt;
-        this.totalQuestionsSolved = totalQuestionsSolved;
-        this.totalSetsSolved = totalSetsSolved;
     }
 
     /**
@@ -129,80 +98,108 @@ public class UserDetails  {
      * put into the hashMap and the HashMap object is added to the firebase database
      */
     public void runFireStore() {
+        new RunFireStoreAsync(firstName, lastName, email, phoneNumber,
+                score, xp, totalQuestionAttempt, totalQuestionsSolved, totalSetsSolved,
+                coin, level,userID).execute();
 
-            firebaseAuth = FirebaseAuth.getInstance();
-            firebaseUser = firebaseAuth.getCurrentUser();
+    }
 
-            Map<String,String > userObj = new HashMap<>();
+    /**
+     * This class will run async task to run the Firestore and store the data to the document
+     * This will be done in background thread so that the UI thread is not disturbed
+     */
+    private static class RunFireStoreAsync extends AsyncTask<Void, Void, Void> {
 
-            userObj.put("userID",userID);
-            userObj.put("firstName",firstName);
-            userObj.put("lastName",lastName);
-            userObj.put("email",email);
-            userObj.put("phoneNumber",phoneNumber);
-            userObj.put("score",String.valueOf(score));
-            userObj.put("xp",String.valueOf(xp));
-            userObj.put("totalQuestionAttempt",String.valueOf(totalQuestionAttempt));
-            userObj.put("totalQuestionSolved",String.valueOf(totalQuestionsSolved));
-            userObj.put("totalSetsSolved",String.valueOf(totalSetsSolved));
-            userObj.put("coin",String.valueOf(coin));
-            userObj.put("level",String.valueOf(level));
+            private String firstName;
+            private String lastName;
+            private String email;
+            private String phoneNumber;
+            private String userID;
+
+            private int coin;
+            private int level;
+            private int score;
+            private int xp ;
+            private int totalQuestionAttempt;
+            private int totalQuestionsSolved;
+            private int totalSetsSolved;
+
+            /**
+             * Firebase auth and firebase user used to access the current user and current authentication
+             */
+            private FirebaseAuth firebaseAuth;
+            private FirebaseUser firebaseUser;
+            private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            /**
+             * Collection reference of the firebase database of the collection path "Users"
+             * This is the instance of the Users collection made in the firebase which includes different types of data to store
+             */
+            private CollectionReference collectionReference = db.collection("Users");
+            private String TAG = "Async UserDetails";
+
+            public RunFireStoreAsync(String firstName, String lastName, String email,
+                                     String phoneNumber, int score, int xp,
+                                     int totalQuestionAttempt, int totalQuestionsSolved,
+                                     int totalSetsSolved, int coin, int level, String userID) {
+                firebaseAuth = FirebaseAuth.getInstance();
+                firebaseUser = firebaseAuth.getCurrentUser();
+
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.email = email;
+                this.phoneNumber = phoneNumber;
+                this.score = score;
+                this.xp = xp;
+                this.totalQuestionAttempt = totalQuestionAttempt;
+                this.totalQuestionsSolved = totalQuestionsSolved;
+                this.totalSetsSolved = totalSetsSolved;
+                this.coin= coin;
+                this.level= level;
+                this.userID = userID;
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                Map<String,String > userObj = new HashMap<>();
+
+                userObj.put("userID",userID);
+                userObj.put("firstName",firstName);
+                userObj.put("lastName",lastName);
+                userObj.put("email",email);
+                userObj.put("phoneNumber",phoneNumber);
+                userObj.put("score",String.valueOf(score));
+                userObj.put("xp",String.valueOf(xp));
+                userObj.put("totalQuestionAttempt",String.valueOf(totalQuestionAttempt));
+                userObj.put("totalQuestionSolved",String.valueOf(totalQuestionsSolved));
+                userObj.put("totalSetsSolved",String.valueOf(totalSetsSolved));
+                userObj.put("coin",String.valueOf(coin));
+                userObj.put("level",String.valueOf(level));
 
 
-            collectionReference.add(userObj)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            documentReference.get()
-                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            Log.d(TAG, "onComplete: " + firebaseUser.getUid());
-                                        }
-                                    });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "onFailure: " + "Authentication Failed");
-                        }
-                    });
+                collectionReference.add(userObj)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                documentReference.get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                Log.d(TAG, "onComplete: " + firebaseUser.getUid());
+                                            }
+                                        });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "onFailure: " + "Authentication Failed");
+                            }
+                        });
+
+                return null;
+            }
         }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public int getXp() {
-        return xp;
-    }
-
-    public int getTotalQuestionAttempt() {
-        return totalQuestionAttempt;
-    }
-
-    public int getTotalQuestionsSolved() {
-        return totalQuestionsSolved;
-    }
-
-    public int getTotalSetsSolved() {
-        return totalSetsSolved;
-    }
 }

@@ -42,7 +42,7 @@ public class LoadingData extends AppCompatActivity{
     /**
      * This is a TAG string used to debug
      */
-    private String TAG = "Home Activity";
+    private String TAG = "Loading Activity";
 
     /**
      * This is the signout button
@@ -190,22 +190,24 @@ public class LoadingData extends AppCompatActivity{
                                     {
                                         idFound = true; //if the userID from currentUser Matches with the database then it is set to true
 
-//                                        documentId = document.getId();
-
+                                        loginDetailsAPI.setDocumentID(document.getId());
                                         loginDetailsAPI.setUserID(document.getData().get("userID").toString());
                                         loginDetailsAPI.setFirstName(document.getData().get("firstName").toString());
                                         loginDetailsAPI.setLastName(document.getData().get("lastName").toString());
                                         loginDetailsAPI.setEmail(document.getData().get("email").toString());
                                         loginDetailsAPI.setPhoneNumber(document.getString("phoneNumber"));
-                                        loginDetailsAPI.setScore(Integer.parseInt(document.getString("score")));
-                                        loginDetailsAPI.setXp(Integer.parseInt(document.getString("xp")));
-                                        loginDetailsAPI.setTotalQuestionAttempt(Integer.parseInt(document.getString("totalQuestionAttempt")));
-                                        loginDetailsAPI.setTotalQuestionsSolved(Integer.parseInt(document.getString("totalQuestionSolved")));
-                                        loginDetailsAPI.setTotalSetsSolved(Integer.parseInt(document.getString("totalSetsSolved")));
-                                        loginDetailsAPI.setCoin(Integer.parseInt(document.getString("coin")));
-                                        loginDetailsAPI.setLevel(Integer.parseInt(document.getString("level")));
 
-//                                        Log.d(TAG, "onComplete: Phone: " + document.getData().get("firstName") + " Document ID: " + documentId);
+                                        loginDetailsAPI.setInitialData(
+                                                Integer.parseInt(document.getString("coin")),
+                                                Integer.parseInt(document.getString("level")),
+                                                Integer.parseInt(document.getString("score")),
+                                                Integer.parseInt(document.getString("totalQuestionAttempt")),
+                                                Integer.parseInt(document.getString("totalQuestionSolved")),
+                                                Integer.parseInt(document.getString("totalSetsSolved")),
+                                                Integer.parseInt(document.getString("xp"))
+                                        );
+
+                                        //Log.d(TAG, "onComplete: Phone: " + document.getData().get("firstName") + " Document ID: " + documentId);
 //                                        Log.d(TAG, "onComplete: Account Firestore exists " + document.getData().get("phoneNumber"));
 
                                     }else {

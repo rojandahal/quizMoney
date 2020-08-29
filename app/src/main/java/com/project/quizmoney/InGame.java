@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -35,8 +36,10 @@ public class InGame extends AppCompatActivity {
     private int correctScore = 0;
     private ProgressBar progressBar;
     private CountDownTimer mCountDownTimer;
-    private int countTextNumber=20;
     private TextView countDownText;
+
+    private static final long START_TIMER_MILLS=20000;
+    private long mTimeLeftInMills = START_TIMER_MILLS;
 
     private QuestionModel questionModel = new QuestionModel();
     private LoginDetailsAPI loginDetailsAPI = LoginDetailsAPI.getInstance();
@@ -85,6 +88,7 @@ public class InGame extends AppCompatActivity {
 
         playAnim(question,0, list.get(position).getQuestion());
         countDownMethod();
+
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -93,8 +97,7 @@ public class InGame extends AppCompatActivity {
                 nextBtn.setAlpha(0.4f);
                 enableOption(true);
                 position++;
-                countTextNumber=20;
-                countDownMethod();
+                onReset();
                 if(correctScore == list.size()){
                     loginDetailsAPI.setTotalSetsSolved(1);
                     loginDetailsAPI.setCoin(1);
@@ -107,6 +110,7 @@ public class InGame extends AppCompatActivity {
                 count = 0;
 
                 playAnim(question, 0,list.get(position).getQuestion());
+                countDownMethod();
             }
         });
     }
@@ -117,14 +121,16 @@ public class InGame extends AppCompatActivity {
     private void countDownMethod() {
 
         progressBar.setEnabled(true);
+        countDownText.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
-        mCountDownTimer = new CountDownTimer(20000,1000) {
+        mCountDownTimer = new CountDownTimer(mTimeLeftInMills,1000) {
+            @SuppressLint("DefaultLocale")
             @Override
             public void onTick(long millisUntilFinished) {
+                mTimeLeftInMills = millisUntilFinished;
                 Log.d(TAG, "onTick: " + millisUntilFinished);
-
-                countDownText.setText(String.valueOf(countTextNumber-1));
-                countTextNumber--;
+                updateTimerText();
             }
 
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -132,10 +138,25 @@ public class InGame extends AppCompatActivity {
             public void onFinish() {
                 disableAllEnableNext();
                 progressBar.setEnabled(false);
-                countTextNumber = 20;
+                mTimeLeftInMills = START_TIMER_MILLS;
+                countDownText.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
             }
         };
         mCountDownTimer.start();
+    }
+
+    private void onReset(){
+        countDownText.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
+        mCountDownTimer.cancel();
+        mTimeLeftInMills = START_TIMER_MILLS;
+        updateTimerText();
+    }
+
+    private void updateTimerText(){
+        int seconds = (int) (mTimeLeftInMills / 1000) % 60;
+        countDownText.setText((String.valueOf(seconds)));
     }
 
     private void playAnim(final View view, final int value, final String data){
@@ -194,6 +215,7 @@ public class InGame extends AppCompatActivity {
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void checkAnswer(Button selectedOption){
+        onReset();
         enableOption(false);
         nextBtn.setEnabled(true);
         nextBtn.setAlpha(1);
@@ -236,7 +258,8 @@ public class InGame extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
+        mCountDownTimer.cancel();
+        new AddScoreToFirebase().addPointsToFirebase();
         finish();
     }
 }

@@ -62,11 +62,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private TextView errorText;
 
     /**
-     * These are Firebase authentication object and the currentUser object
-     * mCurrentUser can be used to get the userId: PhoneNumber of the current logged in user in the app
-     */
-
-    /**
      * This is the Authentication provider callback object
      * This object helps to get the instant when the code is sent or when the verification is complete or
      * the verification of the OTP failed
@@ -170,10 +165,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAccess fbAccess = new firebaseAccess();
-        fbAccess.start();
+        firebaseAccess();
+        // Check if user is signed in (non-null).
+        if(mCurrentUser !=null){
+            sendUserToHome();
+        }else Log.d(TAG, "onStart: " + "No User Signed In");
+
     }
 
+    /**
+     * Getting the instance of the firebase authentication and the current user associated with the authentication
+     */
+    public void firebaseAccess() {
+        mAuth = FirebaseAuth.getInstance(); //Instancing the firebase authentication object
+        mCurrentUser = mAuth.getCurrentUser();      //Getting the current user object from the firebase
+    }
 
     private void setCallbacks(){
 
@@ -270,28 +276,4 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         startActivity(homeIntent);
     }
 
-    /**
-     * This inner class is use to execute code in the background thread. The code inside this class run()
-     * method is executed in the background thread (According to me ) but I couldn't close this thread after execution
-     * This thread work migh be attached to the register activity and its components.
-     */
-    class firebaseAccess extends Thread{
-
-        /**
-         * Getting the instance of the firebase authentication and the current user associated with the authentication
-         */
-        public firebaseAccess() {
-            mAuth = FirebaseAuth.getInstance(); //Instancing the firebase authentication object
-            mCurrentUser = mAuth.getCurrentUser();      //Getting the current user object from the firebase
-        }
-
-        @Override
-        public void run() {
-            Log.d(TAG, "doInBackground: on Start " + Thread.currentThread());
-            // Check if user is signed in (non-null).
-            if(mCurrentUser !=null){
-                sendUserToHome();
-            }else Log.d(TAG, "onStart: " + "No User Signed In");
-        }
-    }
 }

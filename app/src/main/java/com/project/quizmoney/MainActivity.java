@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAuth = FirebaseAuth.getInstance();
         mCurrentUser = mAuth.getCurrentUser();
 
-        Log.d(TAG, "doInBackground: Inside onStart " + Thread.currentThread() + " " + Thread.activeCount());
+        //Log.d(TAG, "doInBackground: Inside onStart " + Thread.currentThread() + " " + Thread.activeCount());
         // Check if user is signed in (non-null).
         if(mCurrentUser !=null){
             sendUserToHome();

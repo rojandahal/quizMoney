@@ -29,6 +29,7 @@ public class LoginDetailsAPI extends Application {
     private String firstName;
     private String lastName;
     private String email;
+    private String documentID;
 
     private List<QuestionModel> _qBankList = new ArrayList<>();
 
@@ -99,7 +100,18 @@ public class LoginDetailsAPI extends Application {
     public void setLevel(int level) {
         this.level = level;
     }
-    /** **********************************Score Related Data Enclosed*********************************************** **/
+
+    public void setInitialData(int coin, int level, int score, int totalQuestionAttempt, int totalQuestionsSolved,
+                               int totalSetsSolved, int xp){
+        this.coin = coin;
+        this.level = level;
+        this.score = score;
+        this.totalQuestionAttempt = totalQuestionAttempt;
+        this.totalQuestionsSolved = totalQuestionsSolved;
+        this.totalSetsSolved = totalSetsSolved;
+        this.xp = xp;
+
+    }
 
     /**
      * Static instance of the class
@@ -156,6 +168,18 @@ public class LoginDetailsAPI extends Application {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getDocumentID() {
+        return documentID;
+    }
+
+    public void setDocumentID(String documentID) {
+        this.documentID = documentID;
+    }
+
+    public void resetQuestionModel(){
+        _qBankList = new ArrayList<>();
     }
 
     public LoginDetailsAPI() {

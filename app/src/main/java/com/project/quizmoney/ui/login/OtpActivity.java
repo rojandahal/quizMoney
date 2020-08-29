@@ -199,13 +199,8 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
             otpProgress.setVisibility(View.VISIBLE);
             verifyOtp.setEnabled(false);
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, otp);
-                    signInWithPhoneAuthCredential(credential);
-                }
-            }).start();
+            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, otp);
+            signInWithPhoneAuthCredential(credential);
         }
 
     }
@@ -253,7 +248,6 @@ public class OtpActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onStop() {
         super.onStop();
-
         Log.d(TAG, "onStop: " + LoginDetailsAPI.getInstance().getUserID() + LoginDetailsAPI.getInstance().getFirstName());
         finish();
     }
